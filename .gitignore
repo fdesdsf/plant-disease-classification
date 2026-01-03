@@ -1,0 +1,15 @@
+# Create .gitignore file
+echo "# Python" > .gitignore
+echo "__pycache__/" >> .gitignore
+echo "*.pyc" >> .gitignore
+echo ".env" >> .gitignore
+echo "venv/" >> .gitignore
+echo "" >> .gitignore
+echo "# System" >> .gitignore
+echo ".DS_Store" >> .gitignore
+echo "Thumbs.db" >> .gitignore
+echo "" >> .gitignore
+echo "# IDE" >> .gitignore
+echo ".vscode/" >> .gitignore
+echo ".idea/" >> .gitignore"__pycache__/" 
+"*.pyc" 

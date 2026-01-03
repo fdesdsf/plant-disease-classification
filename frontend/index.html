@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detector | AI-Powered Plant Health Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Plant Disease Detector</h1>
+            </div>
+            <p class="tagline">AI-powered plant health analysis for better crop management</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="section-title">
+                    <i class="fas fa-upload"></i>
+                    <h2>Upload Plant Image</h2>
+                </div>
+                
+                <div class="upload-container">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Drag & Drop Image Here</h3>
+                        <p>or click to browse files</p>
+                        <p class="file-info">Supports: JPG, PNG, JPEG, BMP (Max: 5MB)</p>
+                        <input type="file" id="imageInput" accept=".jpg,.jpeg,.png,.bmp,.gif">
+                        <label for="imageInput" class="browse-btn">
+                            <i class="fas fa-folder-open"></i> Browse Files
+                        </label>
+                    </div>
+                    
+                    <div class="preview-container">
+                        <div class="preview-title">
+                            <i class="fas fa-image"></i>
+                            <h3>Image Preview</h3>
+                        </div>
+                        <div class="image-preview" id="imagePreview">
+                            <div class="placeholder">
+                                <i class="fas fa-seedling"></i>
+                                <p>No image selected</p>
+                            </div>
+                        </div>
+                        
+                        <button id="analyzeBtn" class="analyze-btn" disabled>
+                            <i class="fas fa-search"></i>
+                            <span>Analyze Plant Disease</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection">
+                <div class="section-title">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h2>Analysis Results</h2>
+                </div>
+                
+                <div class="results-container">
+                    <!-- Main Result -->
+                    <div class="main-result-card">
+                        <div class="result-header">
+                            <h3><i class="fas fa-diagnoses"></i> Primary Diagnosis</h3>
+                            <div class="confidence-score">
+                                <span class="score" id="confidenceScore">0%</span>
+                                <span>Confidence</span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-content">
+                            <div class="plant-icon" id="plantIcon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="diagnosis-details">
+                                <h1 id="diseaseName">No Analysis Yet</h1>
+                                <div class="plant-info">
+                                    <div class="info-item">
+                                        <i class="fas fa-seedling"></i>
+                                        <span id="plantType">Plant: --</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-heartbeat"></i>
+                                        <span id="healthStatus">Status: --</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span id="analysisTime">Time: --</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="advice-box">
+                            <h4><i class="fas fa-lightbulb"></i> Recommendations</h4>
+                            <p id="adviceText">Upload a plant image to get disease analysis and treatment recommendations.</p>
+                        </div>
+                    </div>
+
+                    <!-- Top Predictions -->
+                    <div class="predictions-card">
+                        <h3><i class="fas fa-chart-bar"></i> Top Predictions</h3>
+                        <div class="predictions-list" id="predictionsList">
+                            <div class="prediction-item placeholder">
+                                <div class="prediction-rank">1</div>
+                                <div class="prediction-details">
+                                    <div class="prediction-name">--</div>
+                                    <div class="prediction-bar">
+                                        <div class="bar-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="prediction-percent">0%</div>
+                            </div>
+                            <div class="prediction-item placeholder">
+                                <div class="prediction-rank">2</div>
+                                <div class="prediction-details">
+                                    <div class="prediction-name">--</div>
+                                    <div class="prediction-bar">
+                                        <div class="bar-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="prediction-percent">0%</div>
+                            </div>
+                            <div class="prediction-item placeholder">
+                                <div class="prediction-rank">3</div>
+                                <div class="prediction-details">
+                                    <div class="prediction-name">--</div>
+                                    <div class="prediction-bar">
+                                        <div class="bar-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="prediction-percent">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detected Classes Section -->
+            <section class="classes-section">
+                <div class="section-title">
+                    <i class="fas fa-list"></i>
+                    <h2>Detectable Plant Diseases</h2>
+                </div>
+                
+                <div class="classes-grid" id="classesGrid">
+                    <!-- Classes will be loaded dynamically -->
+                    <div class="loading-classes">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading detectable diseases...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3><i class="fas fa-leaf"></i> Plant Disease Detector</h3>
+                    <p>Using AI to help farmers and gardeners identify plant diseases early.</p>
+                    <p class="api-info">API: <span id="apiStatus">Not Connected</span></p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#" id="uploadNewBtn"><i class="fas fa-upload"></i> Upload New Image</a>
+                    <a href="#classes"><i class="fas fa-list"></i> View All Diseases</a>
+                    <a href="#" id="testApiBtn"><i class="fas fa-plug"></i> Test API Connection</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Plant Disease Detection System | Powered by AI & Flask | Model: PlantVillage 8-class CNN</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <h3>Analyzing Plant Image</h3>
+            <p id="loadingMessage">Processing image and detecting diseases...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText">Message here</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
